@@ -1,0 +1,42 @@
+package main
+
+import (
+	"fmt"
+
+	"github.com/zainul/nux/internal"
+)
+
+// User is user struct
+type User struct {
+	ID    int    `validate:"number,min=1=E01,max=1000=E02,non_empty=true=E04"`
+	Name  string `validate:"string,min=2=E01,max=10=E03,non_empty=true=E04"`
+	Bio   string `validate:"string,non_empty=true=E04"`
+	Gte   int    `validate:"number,gte=3=E06,non_empty=true=E04"`
+	Email string `validate:"email,validemail=true=E05"`
+}
+
+func main() {
+
+	errorMap := make(map[string]string, 0)
+	errorMap["E01"] = "Min value int should be 1"
+	errorMap["E02"] = "Max value int should be 100"
+	errorMap["E03"] = "Max value for string should be 10"
+	errorMap["E04"] = "Cannot be empty"
+	errorMap["E05"] = "Must be valid email format"
+	errorMap["E06"] = "Greater than error"
+
+	internal.NewError(errorMap)
+
+	user := User{
+		ID:    0,
+		Name:  "superlongstring",
+		Bio:   "",
+		Gte:   10,
+		Email: "foobar",
+	}
+
+	fmt.Println("Errors:")
+	for i, err := range internal.ValidateStruct(user) {
+		fmt.Println(err.Code, err.Message, i)
+	}
+}
