@@ -2,6 +2,8 @@
 
 ![Alt text](logo.png?raw=true "Clean Architecture")
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/zainul/nux)](https://goreportcard.com/report/github.com/zainul/nux)
+
 nux is golang validator that allow to setting the error message dynamically base on error code.
 currently support for:
 
