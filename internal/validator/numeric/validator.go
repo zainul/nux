@@ -7,13 +7,20 @@ import (
 )
 
 const (
-	NonZero          = "non_zero"
-	Min              = "min"
-	Max              = "max"
+	// NonZero tag
+	NonZero = "non_zero"
+	// Min tag
+	Min = "min"
+	// Max tag
+	Max = "max"
+	// GreaterThanEqual tag
 	GreaterThanEqual = "gte" // Same as 'min' above example gte=3 so min value should be 1,2,3
-	LessThanEqual    = "lte" // Same as 'max' above example lte=10 so max value should be 10,9,8,7
-	GreaterThan      = "gt"
-	LessThan         = "lt"
+	// LessThanEqual tag
+	LessThanEqual = "lte" // Same as 'max' above example lte=10 so max value should be 10,9,8,7
+	// GreaterThan  tag
+	GreaterThan = "gt"
+	// LessThan tag
+	LessThan = "lt"
 )
 
 // New ...

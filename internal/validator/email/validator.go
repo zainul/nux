@@ -12,6 +12,7 @@ import (
 var mailRegex = regexp.MustCompile(`\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z`)
 
 const (
+	// TypeEmail is tag for email validation
 	TypeEmail = "validemail"
 )
 

@@ -7,12 +7,19 @@ import (
 )
 
 const (
-	NonEmpty                   = "non_empty"
-	Min                        = "min"
-	Max                        = "max"
-	ContainNumeric             = "aplhanumeric"
-	Email                      = "email"
-	TimeFormat                 = "time"
+	// NonEmpty tag
+	NonEmpty = "non_empty"
+	// Min tag
+	Min = "min"
+	// Max tag
+	Max = "max"
+	// ContainNumeric tag
+	ContainNumeric = "aplhanumeric"
+	// Email tag
+	Email = "email"
+	// TimeFormat tag
+	TimeFormat = "time"
+	// TimeFormatWithCustomLayout tag
 	TimeFormatWithCustomLayout = "timelayout"
 )
 
