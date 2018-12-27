@@ -115,3 +115,21 @@ func TestValidNumericMinMaxGteLte(t *testing.T) {
 	assert.Equal(t, 0, len(nuxErrors), "total of error should be 0")
 
 }
+
+type ContainNonValidateValue struct {
+	Name string `validate:"string,non_empty=true=E04"`
+	Age  int
+}
+
+func TestContainNonValidate(t *testing.T) {
+	InitError()
+	NewError(errs)
+
+	in := ContainNonValidateValue{
+		Name: "zainul",
+		Age:  28,
+	}
+
+	nuxErrors := ValidateStruct(in)
+	assert.Equal(t, 0, len(nuxErrors), "total of error should be 0")
+}
