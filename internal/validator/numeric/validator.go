@@ -7,11 +7,13 @@ import (
 )
 
 const (
-	NonZero     = "non_zero"
-	Min         = "min"
-	Max         = "max"
-	GreaterThan = "gte"
-	LowerThan   = "lte"
+	NonZero          = "non_zero"
+	Min              = "min"
+	Max              = "max"
+	GreaterThanEqual = "gte" // Same as 'min' above example gte=3 so min value should be 1,2,3
+	LessThanEqual    = "lte" // Same as 'max' above example lte=10 so max value should be 10,9,8,7
+	GreaterThan      = "gt"
+	LessThan         = "lt"
 )
 
 // New ...
@@ -24,12 +26,14 @@ func New() usecase.Validator {
 
 // Validator ...
 type validator struct {
-	ErrorCode   map[string]string
-	Min         int
-	Max         int
-	GreaterThan int
-	LowerThan   int
-	NonZero     bool
+	ErrorCode        map[string]string
+	Min              *int
+	Max              *int
+	GreaterThanEqual *int
+	LessThanEqual    *int
+	GreaterThan      *int
+	LessThan         *int
+	NonZero          bool
 }
 
 // Validate implementation of numeric validation
@@ -37,22 +41,37 @@ func (v *validator) Validate(val interface{}) (bool, *domain.NuxError) {
 	l := val.(int)
 
 	if v.NonZero && l == 0 {
+		// fmt.Println("non zero detected", l, v)
 		return false, helper.FindError(v.ErrorCode[NonZero])
 	}
 
-	if l < v.Min {
+	if v.Min != nil && l < *v.Min {
+		// fmt.Println("min detected", l, v)
 		return false, helper.FindError(v.ErrorCode[Min])
 	}
 
-	if v.Max > 0 && v.Max >= v.Min && l > v.Max {
+	if v.Max != nil && l > *v.Max {
+		// fmt.Println("max zero detected", l, v)
 		return false, helper.FindError(v.ErrorCode[Max])
 	}
 
-	if l < v.LowerThan {
-		return false, helper.FindError(v.ErrorCode[LowerThan])
+	if v.LessThanEqual != nil && l <= *v.LessThanEqual {
+		// fmt.Println("lte detected", l, v)
+		return false, helper.FindError(v.ErrorCode[LessThanEqual])
 	}
 
-	if l > v.GreaterThan {
+	if v.GreaterThanEqual != nil && l >= *v.GreaterThanEqual {
+		// fmt.Println("gte detected", l, v)
+		return false, helper.FindError(v.ErrorCode[GreaterThanEqual])
+	}
+
+	if v.LessThan != nil && l < *v.LessThan {
+		// fmt.Println("lt detected", l, v)
+		return false, helper.FindError(v.ErrorCode[LessThan])
+	}
+
+	if v.GreaterThan != nil && l > *v.GreaterThan {
+		// fmt.Println("gt detected", l, v)
 		return false, helper.FindError(v.ErrorCode[GreaterThan])
 	}
 
@@ -65,13 +84,23 @@ func (v *validator) SetValueFromTag(field *domain.NuxTag) {
 
 		switch field.Tag {
 		case Min:
-			v.Min = helper.ParseInt(field.Value)
+			min := helper.ParseInt(field.Value)
+			v.Min = &min
 		case Max:
-			v.Max = helper.ParseInt(field.Value)
+			max := helper.ParseInt(field.Value)
+			v.Max = &max
+		case GreaterThanEqual:
+			gte := helper.ParseInt(field.Value)
+			v.GreaterThanEqual = &gte
+		case LessThanEqual:
+			lte := helper.ParseInt(field.Value)
+			v.LessThanEqual = &lte
 		case GreaterThan:
-			v.GreaterThan = helper.ParseInt(field.Value)
-		case LowerThan:
-			v.LowerThan = helper.ParseInt(field.Value)
+			gt := helper.ParseInt(field.Value)
+			v.GreaterThan = &gt
+		case LessThan:
+			lt := helper.ParseInt(field.Value)
+			v.LessThan = &lt
 		case NonZero:
 			v.NonZero = helper.ParseBool(field.Value)
 		}

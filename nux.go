@@ -5,12 +5,12 @@ import (
 	"github.com/zainul/nux/internal/domain"
 )
 
-// NewError ...
+// NewError initiate the list of error
 func NewError(errs map[string]string) {
 	internal.NewError(errs)
 }
 
-// ValidateStruct  ....
+// ValidateStruct  is function to use validate the struct
 func ValidateStruct(strct interface{}) []domain.NuxError {
 	return internal.ValidateStruct(strct)
 }

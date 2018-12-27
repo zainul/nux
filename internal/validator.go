@@ -44,10 +44,10 @@ func getValidatorFromTag(tag string) Validator {
 	switch args[0] {
 	case "number":
 		val := numeric.New()
-
 		for _, validation := range args[1:] {
 			val.SetValueFromTag(helper.SplitError(validation))
 		}
+
 		return val
 	case "string":
 		val := text.New()

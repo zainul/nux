@@ -7,13 +7,13 @@ import (
 )
 
 const (
-	NonEmpty                    = "non_empty"
-	Min                         = "min"
-	Max                         = "max"
-	ContainNumeric              = "aplhanumeric"
-	Email                       = "email"
-	TimeFormat                  = "time"
-	TimeFormatWithCustomeLayout = "timelayout"
+	NonEmpty                   = "non_empty"
+	Min                        = "min"
+	Max                        = "max"
+	ContainNumeric             = "aplhanumeric"
+	Email                      = "email"
+	TimeFormat                 = "time"
+	TimeFormatWithCustomLayout = "timelayout"
 )
 
 // New ...
@@ -26,14 +26,14 @@ func New() usecase.Validator {
 
 // validator validates for string type
 type validator struct {
-	ErrorCode                   map[string]string
-	Min                         int  // min
-	Max                         int  // max
-	ContainNumeric              bool // aplhanumeric
-	Email                       bool // email
-	TimeFormat                  bool // time
-	NonEmpty                    bool
-	TimeFormatWithCustomeLayout string // timelayout
+	ErrorCode                  map[string]string
+	Min                        int  // min
+	Max                        int  // max
+	ContainNumeric             bool // aplhanumeric
+	Email                      bool // email
+	TimeFormat                 bool // time
+	NonEmpty                   bool
+	TimeFormatWithCustomLayout string // timelayout
 }
 
 // Validate implementation of text validation
