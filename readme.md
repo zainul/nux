@@ -12,6 +12,7 @@ currently support for:
 
 - text validation
 - number validation
+- email validation
 
 ## Install
 
